@@ -25,7 +25,8 @@ const Yelp = {
             category: business.categories,
             rating: business.rating,
             reviewCount: business.review_count,
-            url: business.url
+            url: business.url,
+            distance: business.distance
           }
         });
       }

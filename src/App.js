@@ -15,6 +15,7 @@ class App extends Component {
   searchYelp(term, location, sortBy) {
     Yelp.search(term, location, sortBy).then(businesses => {
       this.setState({businesses: businesses});
+      document.getElementById('search-button').classList.remove('animator');
     });
   }
 

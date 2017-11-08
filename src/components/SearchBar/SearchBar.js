@@ -4,7 +4,8 @@ import './SearchBar.css';
 const sortByOptions = {
   'Best Match': 'best_match',
   'Highest Rated': 'rating',
-  'Most Reviewed': 'review_count'
+  'Most Reviewed': 'review_count',
+  'Shortest Distance': 'distance'
 };
 
 class SearchBar extends React.Component {
@@ -18,6 +19,16 @@ class SearchBar extends React.Component {
     this.handleTermChange = this.handleTermChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      if(this.state.term && this.state.location) {
+        document.getElementById('search-button').classList.add('animator');
+        this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+      }
+    }
   }
 
   renderSortByOptions() {
@@ -50,7 +61,10 @@ class SearchBar extends React.Component {
   }
 
   handleSearch(event) {
-    this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+    if(this.state.term && this.state.location) {
+      document.getElementById('search-button').classList.add('animator');
+      this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+    }
     event.preventDefault();
   }
 
@@ -63,10 +77,10 @@ class SearchBar extends React.Component {
           </ul>
         </div>
         <div className="SearchBar-fields">
-          <input onChange={this.handleTermChange} placeholder="Search Businesses" />
-          <input onChange={this.handleLocationChange} placeholder="Where?" />
+          <input onKeyPress={this.handleKeyPress} onChange={this.handleTermChange} placeholder="Search Businesses" />
+          <input onKeyPress={this.handleKeyPress} onChange={this.handleLocationChange} placeholder="Where?" />
         </div>
-        <div onClick={this.handleSearch} className="SearchBar-submit">
+        <div onClick={this.handleSearch} className="SearchBar-submit" id="search-button">
           <a>Let's Go</a>
         </div>
       </div>

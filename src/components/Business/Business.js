@@ -18,6 +18,7 @@ class Business extends React.Component {
           </a>
         </div>
         <h2>{this.props.business.name}</h2>
+        <p>Distance: {Math.round(this.props.business.distance)}m</p>
         <div className="Business-information">
           <div className="Business-address">
             <a href={this.mapUrl()} target='_blank'>
